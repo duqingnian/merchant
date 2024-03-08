@@ -57,7 +57,7 @@ class DefaultController extends BaseController
 		$merchant_is_test = $this->GetBool($merchant->isIsTest());
 		$merchant_is_active = $this->GetBool($merchant->isIsActive());
 		return $this->render("default.html.twig",[
-			'SchemeAndHttpHost'=>'https://'.$_SERVER['HTTP_HOST'],
+			'SchemeAndHttpHost'=>$_SERVER['HTTP_HOST'],
 			'UserAccessToken'=>$this->authcode('ID:'.$this->getUser()->getId()),
 			'Merchant'=>$merchant,
 			'merchant_is_test'=>$merchant_is_test,
