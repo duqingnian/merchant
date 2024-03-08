@@ -1,0 +1,17 @@
+/404.html
+/index.html
+/.env
+/composer.phar
+/composer.lock
+/composer.json
+
+/bin/
+/var/
+/migrations/
+/config/
+/vendor/
+/public/
+/templates/
+/lib/
+/stc/Channel/
+/templates/
