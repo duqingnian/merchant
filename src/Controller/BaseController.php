@@ -251,6 +251,8 @@ class BaseController extends AbstractController
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonStr);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 		$response = curl_exec($ch);
 		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -271,6 +273,8 @@ class BaseController extends AbstractController
 			curl_setopt ( $curl, CURLOPT_POSTFIELDS, http_build_query($data) );
         }
         curl_setopt ( $curl, CURLOPT_RETURNTRANSFER, 1 );
+		curl_setopt($curl, CURLOPT_TIMEOUT, 5);
+		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
         $response = curl_exec($curl);
 		$httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 		curl_close($curl);
