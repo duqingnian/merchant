@@ -76,6 +76,9 @@ class OrderPayout
     #[ORM\Column(length: 20)]
     private ?string $original_status = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $retry = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -329,6 +332,18 @@ class OrderPayout
     public function setOriginalStatus(string $original_status): static
     {
         $this->original_status = $original_status;
+
+        return $this;
+    }
+
+    public function getRetry(): ?int
+    {
+        return $this->retry;
+    }
+
+    public function setRetry(?int $retry): static
+    {
+        $this->retry = $retry;
 
         return $this;
     }
