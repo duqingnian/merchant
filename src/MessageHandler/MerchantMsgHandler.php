@@ -85,9 +85,9 @@ class MerchantMsgHandler implements MessageHandlerInterface
 					$this->entityManager->flush();
 					
 					//给商户的运维群发消息，提示该商户发起了提现
-					$yw_telegram_group_id = $merchant->getYwTelegramGroupId();
+					$telegram_group_id = $merchant->getTelegramGroupId();
 					
-					if('' != $yw_telegram_group_id)
+					if('' != $telegram_group_id)
 					{
 						$text = '['.$merchant->getName().']发起了提现:'.$amount."\n";
 						$text .= "提现金额: ".$amount."\n";
@@ -98,7 +98,7 @@ class MerchantMsgHandler implements MessageHandlerInterface
 						$text .= "备注: ".$note."\n";
 						$text .= "提现编号: ".$model->getId();
 						
-						$this->_send_md(urlencode($text), $yw_telegram_group_id);
+						$this->_send_md(urlencode($text), $telegram_group_id);
 					}
 				}
 				else
