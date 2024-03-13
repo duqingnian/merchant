@@ -201,17 +201,10 @@ class OrderController extends BaseController
 			{
 				$row['merchant'] = '['.$merchant['id'].']'.$merchant['name'];
 			}
-   
-							 
-							  
-																										   
-	
-							   
-	
-
+			
 			//商户回调
 			$row['merchant_notify'] = ['http_code'=>-1,'ret'=>''];
-			$merchant_notify = $this->entityManager->getConnection()->executeQuery('select * from `merchant_notify_log` where order_id='.$row['id'].' order by id desc')->fetchAssociative();
+			$merchant_notify = $this->entityManager->getConnection()->executeQuery('select * from `merchant_notify_log` where order_id='.$row['id'].' and bundle="'.$bundle.'"  order by id desc')->fetchAssociative();
 			if($merchant_notify)
 			{
 				$row['merchant_notify'] = ['http_code'=>$merchant_notify['ret_http_code'],'ret'=>strtolower(mb_substr($merchant_notify['ret'],0,10))];
