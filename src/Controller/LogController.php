@@ -13,7 +13,6 @@ class LogController extends BaseController
 		$this->dispatch($request);
     }
 	
-	//载入通道数据
 	public function _pager($request)
 	{
 		$user = $this->user($request);
@@ -22,7 +21,7 @@ class LogController extends BaseController
 		$show_filter = $request->request->get('show_filter','');
 		
 		$bundle_map = ['ADD_BALANCE'=>'增加余额','SUB_BALANCE'=>'减少余额','ADD_DF'=>'增加代付','SUB_DF'=>'减少代付'];
-		$summary_map = ['PI_SUCC'=>'代收成功','PO_CREATED'=>'创建代付','PO_FAIL_NOTIFY'=>'代付失败'];
+		$summary_map = ['PI_SUCC'=>'代收成功','PO_CREATED'=>'创建代付','PO_FAIL_NOTIFY'=>'代付失败','REVERSE'=>'冲正'];
 		
 		$where = ' where mid='.$merchanat->getId();
 		
@@ -82,7 +81,15 @@ class LogController extends BaseController
 			$row['note'] = '';
 			if('' != $row['summary'] && array_key_exists($row['summary'], $summary_map))
 			{
-				$row['note'] = $summary_map[$row['summary']];
+				if('REVERSE' == $row['summary'])
+				{
+					$arr = json_decode($data);
+					$row['note'] = $summary_map[$row['summary']].$arr->status.'->'.$arr->target_status;
+				}
+				else
+				{
+					$row['note'] = $summary_map[$row['summary']];
+				}
 			}
 			$row['created_at'] = date('Y-m-d H:i:s',$row['created_at']);
 			
